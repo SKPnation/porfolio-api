@@ -51,5 +51,5 @@ app.post('/api/email', (req, res, next) => {
 
 
 //0.0.0.0 is an address used to refer to all IP addresses on the same machine so 0.0.0.0 refers to 127.0.0.1:3000
-app.listen(3030, "0.0.0.0", () => console.log('Application is running'))
+app.listen(3000, "0.0.0.0", () => console.log('Application is running'))
 
