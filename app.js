@@ -26,7 +26,27 @@ app.get('/api', (req, res, next) => {
 });
 
 app.post('/api/email', (req, res, next) => {
-    sendGrid.setApiKey('');
+    sendGrid.setApiKey('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');
+    const msg = {
+        to: 'ayomideseaz@gmail.com', // Change to your recipient
+        from: req.body.email, // Change to your verified sender
+        subject: 'Website Contact',
+        text: req.body.message,
+        //html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+      }
+
+      sendGrid.send(msg)
+      .then(result => {
+          res.status(200).json({
+              success: true
+          });
+      })
+      .catch(err => {
+          console.log('error: ', err);
+          res.status(401).json({
+              success: false
+          });
+      });
 });
 
 
