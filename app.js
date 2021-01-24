@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser'); //to add a body to a request
-const cors = require('cors'); //Cross-origin resource sharing: One server or a client can request infromation on your server..
+const cors = require('cors'); //Cross-origin resource sharing: One server or a client can request infromation on your server...
+let port = process.env.PORT || 3030;
 
 const sendGrid = require('@sendgrid/mail');
 
@@ -50,6 +51,7 @@ app.post('/api/email', (req, res, next) => {
 });
 
 
-//0.0.0.0 is an address used to refer to all IP addresses on the same machine so 0.0.0.0 refers to 127.0.0.1:3000
-app.listen(3000, "0.0.0.0", () => console.log('Application is running'))
+//0.0.0.0 is an address used to refer to all IP addresses on the same machine so 0.0.0.0 refers to 127.0.0.1:3030
+app.listen(port, () => 
+    console.log(`Application is running on port http://localhost:${port}/api`));
 
