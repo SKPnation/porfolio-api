@@ -12,12 +12,12 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//     next();
-// });
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
 
 //Define routes
 //Two routes; GET & POST
@@ -32,15 +32,19 @@ app.post('/api/email', (req, res, next) => {
         to: 'ayomideseaz@gmail.com', // Change to your recipient
         from: req.body.email, // Change to your verified sender
         subject: 'Website Contact',
-        text: req.body.message,
-        //html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-      }
+        text: req.body.message      
+    }
 
-      sendGrid.send(msg)
+    sendGrid.send(msg)
       .then(result => {
-          res.status(200).json({
-              success: true
-          });
+
+        res.status(200).json({
+            success: true
+        });
+
+        app.get('/api/result', (req, res, next) => {
+            res.send(JSON.stringify(msg));                          
+        });
       })
       .catch(err => {
           console.log('error: ', err);
